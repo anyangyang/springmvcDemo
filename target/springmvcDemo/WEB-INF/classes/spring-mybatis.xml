@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:Context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd"
+       default-autowire="byName">
+
+    <!--开启自动扫描-->
+    <Context:component-scan base-package="com.springmvc" />
+    <!--引入配置文件，属性 ignore-unresolvable 表示是否忽略解析不到的属性，如果不忽略，那么在解析不到的时候回抛出异常-->
+    <Context:property-placeholder location="/jdbc.properties" ignore-unresolvable="true" />
+
+    <!--配置数据库连接池，这里使用的数据库连接池是 dbcp-->
+    <!--id名dataSource，销毁方法：close-->
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <!--首先配置数据库的驱动，数据库地址，用户名和密码-->
+      <property name="driverClassName" value="${db.driven}" />
+        <property name="url" value="${db.url}" />
+        <property name="username" value="${db.user}" />
+        <property name="password" value="${db.password}" />
+        <!--配置数据库连接池的一些信息-->
+        <!--初始化连接池大小-->
+        <property name="initialSize" value="${db.initialSize}" />
+        <!--最大连接池数-->
+        <property name="maxTotal" value="${db.maxTotal}" />
+        <!--最大空闲数-->
+        <property name="maxIdle" value="${db.maxIdle}" />
+        <!--最小空闲数-->
+        <property name="minIdle" value="${db.minIdle}" />
+        <!--最长等待时间-->
+        <property name="maxWaitMillis" value="${db.maxWaitMillis}" />
+    </bean>
+
+      <!--接下来就开始配置spring-mybatis-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" >
+
+        <!--与mybatis的配置一致，首先配置数据库或者数据连接池,ref属性中的值是上面dbcp数据库连接池的id-->
+        <property name="dataSource" >
+            <ref bean="dataSource"/>
+        </property>
+        <!--接下来开始把mapper引进来，自动扫描mapping.xml-->
+        <property name="mapperLocations" value="classpath:mapping/*.xml" />
+        <property name="configLocation"  value="classpath:mybatis-config.xml"/>
+    </bean>
+
+    <!--配置DAO层所在的类，sping会自定扫描其中的类-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--mapper所在包-->
+        <property name="basePackage" value="com.springmvc.mapper" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+    <!--配置事务管理器-MyBatis自动参与到spring事务管理中，无需额外配置，
+    只要org.mybatis.spring.SqlSessionFactoryBean引用的数据源与DataSourceTransactionManager引用的数据源一致即可，否则事务管理会不起作用。-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+</beans>

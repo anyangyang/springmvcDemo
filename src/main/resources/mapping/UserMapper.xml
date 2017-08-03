@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!--命名空间与UserMapper的包名+接口名一致-->
+<mapper namespace="com.springmvc.mapper.UserMapper">
+     <!--id名与类名一致-->
+    <resultMap id="User" type="com.springmvc.entity.User">
+        <!--id标签代表主键-->
+        <id property="id" column="id"/>
+        <result property="nickName" column="nickName"/>
+        <result property="password" column="password"/>
+        <result property="firstName" column="firstName"/>
+        <result property="lastName" column="lastName"/>
+    </resultMap>
+
+    <!--id属性的名字要与UserMapper中的定义的方法名一致，传入的参数也要与serMapper中的定义的方法的参数一致，返回类型也是-->
+    <select id="loadUserById" parameterType="java.lang.Integer" resultMap="User">
+          SELECT id,nickName,password,firstName,lastName
+          FROM  "user"
+          WHERE id = #{id}
+    </select>
+
+
+</mapper>
