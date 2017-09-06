@@ -1,0 +1,30 @@
+package com.springmvc.entity.enums;
+
+public enum Errors {
+
+    DEFAULT_ERROR("10001","系统默认错误");
+
+    private String errorCode;
+    private String errorMsg;
+
+    Errors(String errorCode,String errorMsg){
+        this.errorCode = errorCode;
+        this.errorMsg = errorMsg;
+    }
+
+    public String getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
+    }
+
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+    }
+}

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byName">
+
+    <!--开始配置redis-->
+    <bean id="redisUrl" class="java.net.URI">
+        <constructor-arg value="${redis.uri}"></constructor-arg>
+    </bean>
+
+    <!--配置单机池-->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxTotal" value="32"/>
+        <property name="maxIdle" value="6" />
+        <property name="minIdle" value="150" />
+    </bean>
+
+    <!--单机池-->
+    <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+        <constructor-arg ref="redisUrl" />
+        <constructor-arg ref="jedisPoolConfig" />
+    </bean>
+
+    <!--redis集群分片池-->
+    <bean id="jedisShardInfo" class="redis.clients.jedis.JedisShardInfo">
+        <constructor-arg ref="redisUrl" />
+    </bean>
+
+    <!--配置集群分片池-->
+    <bean id="shardedJedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxTotal" value="32"/>
+        <property name="maxIdle" value="6" />
+        <property name="minIdle" value="150" />
+    </bean>
+
+    <!--集群分片池-->
+    <bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool">
+        <constructor-arg ref="shardedJedisPoolConfig" />
+         <constructor-arg>
+             <list>
+                 <ref bean="jedisShardInfo" />
+             </list>
+
+             <!--这个是一些比较特殊的地方，就是用来配置集群的，指向不同数据库的地址-->
+         </constructor-arg>
+
+
+    </bean>
+
+
+
+
+</beans>

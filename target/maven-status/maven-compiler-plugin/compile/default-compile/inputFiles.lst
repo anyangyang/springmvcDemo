@@ -4,3 +4,5 @@ E:\springmvcDemo\springmvcDemo\src\main\java\com\springmvc\controller\MainContro
 E:\springmvcDemo\springmvcDemo\src\main\java\com\springmvc\entity\Blog.java
 E:\springmvcDemo\springmvcDemo\src\main\java\com\springmvc\Dao\UserMapper.java
 E:\springmvcDemo\springmvcDemo\src\main\java\com\springmvc\entity\User.java
+E:\springmvcDemo\springmvcDemo\src\main\java\com\springmvc\entity\enums\Errors.java
+E:\springmvcDemo\springmvcDemo\src\main\java\com\springmvc\entity\ApiResponse.java

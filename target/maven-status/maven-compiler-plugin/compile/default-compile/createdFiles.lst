@@ -1,6 +1,8 @@
 com\springmvc\controller\MainController.class
+com\springmvc\entity\ApiResponse.class
+com\springmvc\entity\enums\Errors.class
+com\springmvc\Dao\UserMapper.class
 com\springmvc\service\UserService.class
 com\springmvc\entity\User.class
-com\springmvc\Dao\UserMapper.class
 com\springmvc\entity\Blog.class
 com\springmvc\service\impl\UserServiceImpl.class
