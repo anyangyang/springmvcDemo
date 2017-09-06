@@ -16,7 +16,7 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>
           classpath:my-dispatch-servlet.xml,
-          classpath:spring-mybatis.xml
+
         </param-value>
       </init-param>
     <load-on-startup>1</load-on-startup>
@@ -51,6 +51,23 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
-
+  <!--加载spring配置文件-->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:spring-mybatis.xml</param-value>
+  </context-param>
+  <!--配置完spring配置文件之后，还需要配置一个监听器，用来加载该配置文件,重点-->
+    <listener>
+      <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+  
+  <!--配置日志监听器-->
+  <context-param>
+    <param-name>logbackConfigLocation</param-name>
+    <param-value>classpath:logback.xml</param-value>
+  </context-param>
+  <listener>
+    <listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener</listener-class>
+  </listener>
 
 </web-app>
