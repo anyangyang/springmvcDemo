@@ -1,6 +1,6 @@
 package com.springmvc.controller;
 
-import com.springmvc.entity.ApiResponse;
+import com.springmvc.entity.messages.ApiResponse;
 import com.springmvc.entity.User;
 import com.springmvc.service.impl.UserServiceImpl;
 
@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
