@@ -20,5 +20,15 @@
           WHERE id = #{id}
     </select>
 
+    <insert id="batchInsertUser" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO basic_user(nickName, password, firstName, lastName)
+        VALUES
+        <foreach collection="list"  separator="," item="item">
+            (#{item.nickName},#{item.password},#{item.firstName},#{item.lastName})
+        </foreach>
+    </insert>
+
+
+
 
 </mapper>

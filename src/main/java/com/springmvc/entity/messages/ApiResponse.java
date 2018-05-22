@@ -14,11 +14,20 @@ public class ApiResponse<T> {
 
     private T data;
 
-    public void invokeFaile(Errors errors){
-        this.errors = errors;
-        this.errorCode = errors.getErrorCode();
-        this.errorMsg = errors.getErrorMsg();
-        this.success = Boolean.FALSE;
+    public static ApiResponse  invokeFaile(Errors errors){
+        ApiResponse apiResponse = new ApiResponse();
+        apiResponse.errors = errors;
+        apiResponse.errorCode = errors.getErrorCode();
+        apiResponse.errorMsg = errors.getErrorMsg();
+        apiResponse.success = Boolean.FALSE;
+        return apiResponse;
+    }
+
+    public static ApiResponse  invokeSuccess(Object data){
+        ApiResponse apiResponse = new ApiResponse();
+        apiResponse.success = Boolean.TRUE;
+        apiResponse.data = data;
+        return apiResponse;
     }
 
     public Boolean getSuccess() {

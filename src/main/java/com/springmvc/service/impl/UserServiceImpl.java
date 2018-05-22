@@ -6,6 +6,8 @@ import com.springmvc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 /**
  * Created by zhujiating on 2017/6/28.
@@ -20,5 +22,9 @@ public class UserServiceImpl implements UserService{
     public User loadUserById(int id) {
         User user = userMapper.loadUserById(id);
         return user;
+    }
+
+    public int batchInsertUser(List<User> userList) {
+        return userMapper.batchInsertUser(userList);
     }
 }

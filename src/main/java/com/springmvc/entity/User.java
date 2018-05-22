@@ -9,6 +9,25 @@ public class User {
     private String password;
     private String firstName;
     private String lastName;
+    private String sex;
+    private int age;
+
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
 
     public int getId() {
         return id;
